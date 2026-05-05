@@ -1,0 +1,39 @@
+REPORTE DE AVANCES - PROYECTO GESTIÓN DE URGENCIAS
+Fecha: 3 de Abril, 2026 (Sesión de Actualización)
+--------------------------------------------------
+
+1. CONFIGURACIÓN TÉCNICA:
+   - Lenguaje: Java 21 (OpenJDK).
+   - Framework GUI: JavaFX 21.0.1.
+   - Gestión de Dependencias: Maven.
+   - Librerías Adicionales: Lombok (para limpieza de código).
+   - Plugins: javafx-maven-plugin configurado para ejecución directa.
+
+2. ARQUITECTURA DEL SISTEMA (MVC + Services):
+   - com.ingenieria.software1.model: Entidades de datos.
+   - com.ingenieria.software1.view: Archivos FXML (Interfaces).
+   - com.ingenieria.software1.controller: Lógica de interacción de UI.
+   - com.ingenieria.software1.service: Lógica de negocio y persistencia en memoria.
+
+4. COMPONENTES IMPLEMENTADOS:
+   - [Modelo] RolEmpleado: Enum con roles (RECEPCIONISTA, MEDICO, ENFERMERO, AUXILIAR).
+   - [Modelo] Empleado: Clase base con soporte para credenciales y rol.
+   - [Modelo] Urgencia: ACTUALIZADO - Motor de generación aleatoria con soporte para personal asignado y Triage.
+   - [Modelo] Triage: Clase para clasificar gravedad (1-5) y signos vitales.
+   - [Servicio] EmergenciaService: ACTUALIZADO - Carga completa desde CSV (Pacientes y Urgencias) y registro con Triage.
+   - [Servicio] UsuarioService: Gestor de personal y autenticación.
+   - [Interfaz] login.fxml: Pantalla de acceso inicial.
+   - [Interfaz] recepcionista.fxml: ACTUALIZADO - Filtro por estado (Historial) y resaltado visual de urgencias críticas.
+   - [Interfaz] registro_urgencia.fxml: NUEVO - Formulario completo con datos de paciente, síntomas y nivel de Triage.
+   - [Interfaz] medico.fxml: Panel específico para médicos y enfermeros con filtrado de urgencias propias.
+
+5. ESTADO ACTUAL:
+   - El flujo completo de atención es funcional y robusto: Registro con Triage -> Notificación Crítica -> Despacho -> Atención Médica.
+   - El sistema de persistencia en CSV es capaz de reconstruir el estado completo al iniciar.
+   - Se implementó resaltado visual (colores) para identificar rápidamente urgencias de gravedad 4 y 5.
+
+PRÓXIMOS PASOS:
+   - Migración a MariaDB: Sustituir CSVService por una conexión real a base de datos.
+   - Reportes Avanzados: Generación de estadísticas de atención.
+   - Gestión de Médicos: Control de carga de trabajo (evitar sobreasignación).
+--------------------------------------------------
