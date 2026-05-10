@@ -1,5 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.effect.*?>
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.PasswordField?>
@@ -8,21 +15,41 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" styleClass="root" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ingenieria.software1.controller.LoginController">
+<AnchorPane prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #66E3D3;" styleClass="root" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ingenieria.software1.controller.LoginController">
     <children>
-        <VBox alignment="CENTER" spacing="20.0" styleClass="login-card" layoutX="175.0" layoutY="50.0" AnchorPane.bottomAnchor="50.0" AnchorPane.leftAnchor="175.0" AnchorPane.rightAnchor="175.0" AnchorPane.topAnchor="50.0">
+        <VBox alignment="CENTER" layoutX="50.0" layoutY="50.0" spacing="20.0" styleClass="login-card" AnchorPane.bottomAnchor="50.0" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="300.0" AnchorPane.topAnchor="50.0">
             <children>
-                <Label text="Gestión de Urgencias" styleClass="label-title">
+                <Label styleClass="label-title" text="Gestión de Urgencias">
                     <font>
                         <Font name="System Bold" size="24.0" />
                     </font>
                 </Label>
-                <Label text="Inicio de Sesión" styleClass="label-subtitle" />
+                <Label styleClass="label-subtitle" text="Inicio de Sesión" />
                 <TextField fx:id="txtUsuario" promptText="Usuario" />
                 <PasswordField fx:id="txtContrasena" promptText="Contraseña" />
-                <Button fx:id="btnLogin" mnemonicParsing="false" onAction="#onLoginClick" prefHeight="30.0" prefWidth="150.0" text="Ingresar" styleClass="btn-primary" />
+                <Button fx:id="btnLogin" mnemonicParsing="false" onAction="#onLoginClick" prefHeight="30.0" prefWidth="150.0" style="-fx-background-color: #2D572C;" styleClass="btn-primary" text="Ingresar" textFill="WHITE">
+               <font>
+                  <Font name="System Bold" size="18.0" />
+               </font></Button>
                 <Label fx:id="lblMensaje" textFill="RED" />
             </children>
         </VBox>
+      <ImageView fitHeight="220.0" fitWidth="303.0" layoutX="339.0" layoutY="93.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@ambulancia.png" />
+         </image>
+      </ImageView>
+      <Line endX="460.0" layoutX="115.0" layoutY="21.0" startX="-100.0" />
+      <Line endX="460.0" layoutX="115.0" layoutY="390.0" startX="-100.0" />
     </children>
+   <effect>
+      <Lighting diffuseConstant="1.46" specularConstant="0.48" specularExponent="32.15" surfaceScale="3.02">
+         <bumpInput>
+            <Shadow />
+         </bumpInput>
+         <light>
+            <Light.Distant />
+         </light>
+      </Lighting>
+   </effect>
 </AnchorPane>
