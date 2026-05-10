@@ -9,7 +9,6 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.text.Font?>
 
-<<<<<<< HEAD:Emergencias_Medicas/atencion_urgencias/target/classes/com/ingenieria/software1/view/medico.fxml
 <VBox prefHeight="600.0" prefWidth="800.0" spacing="15.0" style="-fx-background-color: #66E3D3;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ingenieria.software1.controller.MedicoController">
     <padding>
         <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
@@ -91,50 +90,4 @@
          </light>
       </Lighting>
    </effect>
-=======
-<VBox spacing="15.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ingenieria.software1.controller.PersonalMedicoController" prefWidth="850.0" prefHeight="650.0" styleClass="root">
-    <padding>
-        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
-    </padding>
-    
-    <HBox alignment="CENTER_LEFT" spacing="20.0" styleClass="panel-header">
-        <VBox>
-            <Label text="Panel de Personal Médico" styleClass="label-title">
-                <font>
-                    <Font name="System Bold" size="24.0" />
-                </font>
-            </Label>
-            <Label fx:id="lblBienvenido" styleClass="label-subtitle" />
-        </VBox>
-        <Region HBox.hgrow="ALWAYS" />
-        <Button fx:id="btnCerrarSesion" text="Cerrar Sesión" onAction="#onCerrarSesionClick" styleClass="btn-danger" />
-    </HBox>
-
-    <Separator />
-
-    <HBox spacing="10.0" alignment="CENTER_LEFT" styleClass="toolbar">
-        <Label text="Filtrar por Personal:" styleClass="label-section" />
-        <ComboBox fx:id="cbPersonal" prefWidth="200.0" />
-        <Region HBox.hgrow="ALWAYS" />
-        <Button fx:id="btnFinalizar" text="Finalizar Atención" onAction="#onFinalizarClick" styleClass="btn-success" />
-    </HBox>
-
-    <TableView fx:id="tblUrgencias" VBox.vgrow="ALWAYS">
-        <columns>
-            <TableColumn fx:id="colId" text="ID" prefWidth="80.0" />
-            <TableColumn fx:id="colDescripcion" text="Descripción" prefWidth="200.0" />
-            <TableColumn fx:id="colUbicacion" text="Ubicación" prefWidth="120.0" />
-            <TableColumn fx:id="colGravedad" text="Gravedad" prefWidth="80.0" />
-            <TableColumn fx:id="colHora" text="Hora Reporte" prefWidth="120.0" />
-            <TableColumn fx:id="colEstado" text="Estado" prefWidth="100.0" />
-        </columns>
-    </TableView>
-
-    <HBox spacing="10.0" alignment="CENTER_LEFT" styleClass="toolbar">
-        <Label text="Tareas asignadas:" styleClass="label-section" />
-        <Label fx:id="lblTareas" text="Cargando tareas..." styleClass="label-info" />
-    </HBox>
-
-    <Label fx:id="lblEstadoSistema" text="Seleccione una urgencia para gestionar." styleClass="label-status" />
->>>>>>> 6ab1f558bf1044ae87a4b3fdf45cd4c2834a2159:AtencionUrgencias/atencion_urgencias/src/main/resources/com/ingenieria/software1/view/personal_medico.fxml
 </VBox>

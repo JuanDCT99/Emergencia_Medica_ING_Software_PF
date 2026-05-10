@@ -50,7 +50,7 @@
       <Line endX="-100.0" endY="350.0" layoutX="686.0" layoutY="29.0" startX="-100.0" />
       <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="230.0" layoutY="21.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@personalMedico.png" />
+            <Image url="@../../../../../../../../../AtencionUrgencias/atencion_urgencias/src/main/resources/com/ingenieria/software1/view/personalMedico.png" />
          </image>
       </ImageView>
     </children>
