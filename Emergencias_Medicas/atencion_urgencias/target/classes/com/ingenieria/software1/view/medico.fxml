@@ -1,45 +1,93 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.effect.*?>
+<?import javafx.scene.text.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.text.Font?>
 
-<VBox spacing="15.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ingenieria.software1.controller.MedicoController" prefWidth="800.0" prefHeight="600.0">
+<VBox prefHeight="600.0" prefWidth="800.0" spacing="15.0" style="-fx-background-color: #66E3D3;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ingenieria.software1.controller.MedicoController">
     <padding>
         <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
     </padding>
-    
-    <HBox alignment="CENTER_LEFT" spacing="20.0">
-        <VBox>
-            <Label text="Panel de Atención Médica" textFill="#2c3e50">
-                <font>
-                    <Font name="System Bold" size="24.0" />
-                </font>
-            </Label>
-            <Label fx:id="lblBienvenida" text="Bienvenido, Dr. [Nombre]" textFill="#7f8c8d" />
-        </VBox>
-        <Region HBox.hgrow="ALWAYS" />
-        <Button fx:id="btnCerrarSesion" text="Cerrar Sesión" onAction="#onLogoutClick" style="-fx-background-color: #e74c3c; -fx-text-fill: white;" />
-    </HBox>
-
-    <Separator />
-
-    <HBox spacing="10.0" alignment="CENTER_LEFT">
-        <Label text="Mis Urgencias Asignadas (EN CURSO)" style="-fx-font-weight: bold;" />
-        <Region HBox.hgrow="ALWAYS" />
-        <Button fx:id="btnFinalizar" text="Finalizar Atención" onAction="#onFinalizarClick" style="-fx-background-color: #27ae60; -fx-text-fill: white; -fx-font-weight: bold;" />
-    </HBox>
-
-    <TableView fx:id="tblUrgencias" VBox.vgrow="ALWAYS">
-        <columns>
-            <TableColumn fx:id="colId" text="ID" prefWidth="80.0" />
-            <TableColumn fx:id="colDescripcion" text="Descripción" prefWidth="250.0" />
-            <TableColumn fx:id="colUbicacion" text="Ubicación" prefWidth="150.0" />
-            <TableColumn fx:id="colGravedad" text="Gravedad" prefWidth="80.0" />
-            <TableColumn fx:id="colHora" text="Hora Reporte" prefWidth="120.0" />
-        </columns>
-    </TableView>
-
-    <Label fx:id="lblEstadoSistema" text="Seleccione una urgencia para finalizar su atención." style="-fx-font-style: italic;" />
+   <children>
+       
+       <HBox alignment="CENTER_LEFT" spacing="20.0">
+          <children>
+              <VBox>
+                 <children>
+                     <Label text="Panel de Atención Médica" textFill="#2c3e50">
+                         <font>
+                             <Font name="Franklin Gothic Heavy" size="24.0" />
+                         </font>
+                     </Label>
+                     <Label fx:id="lblBienvenida" text="Bienvenido, Dr. [Nombre]" textFill="#284e51" />
+                 </children>
+              </VBox>
+              <Region HBox.hgrow="ALWAYS" />
+              <Button fx:id="btnCerrarSesion" onAction="#onLogoutClick" style="-fx-background-color: #e74c3c; -fx-text-fill: white;" text="Cerrar Sesión">
+               <effect>
+                  <Lighting diffuseConstant="1.28" specularConstant="0.86">
+                     <bumpInput>
+                        <Shadow />
+                     </bumpInput>
+                     <light>
+                        <Light.Distant />
+                     </light>
+                  </Lighting>
+               </effect>
+            </Button>
+          </children>
+       </HBox>
+   
+       <Separator />
+   
+       <HBox alignment="CENTER_LEFT" spacing="10.0">
+      <children>
+              <Label style="-fx-font-weight: bold;" text="Mis Urgencias Asignadas (EN CURSO)" />
+              <Region HBox.hgrow="ALWAYS" />
+              <Button fx:id="btnFinalizar" onAction="#onFinalizarClick" style="-fx-background-color: #27ae60; -fx-text-fill: white; -fx-font-weight: bold;" text="Finalizar Atención">
+               <effect>
+                  <Lighting diffuseConstant="1.3" specularConstant="0.5">
+                     <bumpInput>
+                        <Shadow />
+                     </bumpInput>
+                     <light>
+                        <Light.Distant />
+                     </light>
+                  </Lighting>
+               </effect>
+            </Button>
+      </children>
+       </HBox>
+   
+       <TableView fx:id="tblUrgencias" VBox.vgrow="ALWAYS">
+           <columns>
+               <TableColumn fx:id="colId" prefWidth="80.0" text="ID" />
+               <TableColumn fx:id="colDescripcion" prefWidth="250.0" text="Descripción" />
+               <TableColumn fx:id="colUbicacion" prefWidth="150.0" text="Ubicación" />
+               <TableColumn fx:id="colGravedad" prefWidth="80.0" text="Gravedad" />
+               <TableColumn fx:id="colHora" prefWidth="120.0" text="Hora Reporte" />
+           </columns>
+       </TableView>
+   
+       <Label fx:id="lblEstadoSistema" style="-fx-font-style: italic;" text="Seleccione una urgencia para finalizar su atención.">
+         <font>
+            <Font name="Britannic Bold" size="18.0" />
+         </font>
+      </Label>
+   </children>
+   <effect>
+      <Lighting diffuseConstant="1.33" specularConstant="0.35" specularExponent="31.65" surfaceScale="2.13">
+         <bumpInput>
+            <Shadow />
+         </bumpInput>
+         <light>
+            <Light.Distant />
+         </light>
+      </Lighting>
+   </effect>
 </VBox>
