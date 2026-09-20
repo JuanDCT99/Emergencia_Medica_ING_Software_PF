@@ -1,0 +1,33 @@
+# ============================================================
+#  Docker Compose - Sistema de Gestion de Urgencias
+#  Servicio de Base de Datos (MariaDB) reproducible para el equipo
+# ============================================================
+#  Instrucciones:
+#    1. Instala Docker Desktop (https://www.docker.com/products/docker-desktop)
+#    2. Desde la terminal, en este directorio, ejecuta:
+#         docker compose up -d
+#    3. La base de datos estara disponible en localhost:3307
+#       con usuario 'usuario_sistema' y password '1234'.
+#    4. Para detener y limpiar datos: docker compose down -v
+# ============================================================
+
+services:
+  mariadb:
+    image: mariadb:11.8
+    container_name: urgencias_mariadb
+    restart: unless-stopped
+    ports:
+      # Mapeamos al puerto 3307 del host para evitar conflictos con una instalacion local en 3306
+      - "3307:3306"
+    environment:
+      MARIADB_ROOT_PASSWORD: "1234"
+    volumes:
+      # Inicializamos la base de datos con nuestro script de esquema y datos semilla.
+      # El script crea la base de datos, el usuario y todas las tablas con datos.
+      # Montamos el directorio entero para cumplir con las convenciones de Docker.
+      - ./docker-entrypoint-initdb.d:/docker-entrypoint-initdb.d:ro
+      # Persistencia de datos para que no se pierdan al reiniciar el contenedor
+      - urgencias_data:/var/lib/mysql
+
+volumes:
+  urgencias_data:
