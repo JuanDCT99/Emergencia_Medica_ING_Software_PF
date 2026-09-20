@@ -1,0 +1,24 @@
+# Maven
+target/
+
+# IDE
+.vscode/
+.idea/
+*.iml
+*.ipr
+*.iws
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Temp files
+*.tmp
+*.log
+*.swp
+*.swo
+
+# Maven wrapper
+mvnw
+mvnw.cmd
+.mvn/
