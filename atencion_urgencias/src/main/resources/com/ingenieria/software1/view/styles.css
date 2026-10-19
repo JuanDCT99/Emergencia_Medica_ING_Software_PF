@@ -1,0 +1,444 @@
+/* ============================================================
+   GESTIÓN DE URGENCIAS — Corporate Blue/Gray Theme
+   JavaFX CSS | Compatible JavaFX 21
+   Diseño Profesional con Profundidad y 3D
+   ============================================================ */
+
+/* ── CONTENEDORES RAÍZ ─────────────────────────────────────── */
+AnchorPane {
+    -fx-background-color: #ECEFF1;
+}
+
+VBox {
+    -fx-background-color: transparent;
+}
+
+.root {
+    -fx-font-family: "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+    -fx-font-size: 13px;
+    -fx-background-color: #ECEFF1;
+}
+
+/* ── ETIQUETAS (Labels) ────────────────────────────────────── */
+Label {
+    -fx-text-fill: #1A2332;
+    -fx-font-size: 13px;
+}
+
+.label-title {
+    -fx-font-size: 22px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #0D47A1;
+    -fx-effect: dropshadow(gaussian, rgba(13, 71, 161, 0.15), 2, 0, 0, 1);
+}
+
+.label-subtitle {
+    -fx-font-size: 13px;
+    -fx-text-fill: #546E7A;
+    -fx-font-style: italic;
+}
+
+.label-status {
+    -fx-font-style: italic;
+    -fx-text-fill: #546E7A;
+    -fx-font-size: 12px;
+    -fx-padding: 4px 8px;
+    -fx-background-color: rgba(200, 200, 200, 0.1);
+    -fx-background-radius: 4px;
+}
+
+.label-error {
+    -fx-text-fill: #C62828;
+    -fx-font-size: 12px;
+    -fx-font-weight: bold;
+    -fx-padding: 6px 10px;
+    -fx-background-color: rgba(198, 40, 40, 0.1);
+    -fx-background-radius: 4px;
+}
+
+.label-section {
+    -fx-font-weight: bold;
+    -fx-text-fill: #1565C0;
+    -fx-font-size: 13px;
+    -fx-letter-spacing: 0.5px;
+}
+
+.label-info {
+    -fx-text-fill: #0288D1;
+    -fx-font-size: 12px;
+    -fx-padding: 4px 8px;
+    -fx-background-color: rgba(2, 136, 209, 0.1);
+    -fx-background-radius: 4px;
+}
+
+/* ── CAMPOS DE TEXTO ───────────────────────────────────────── */
+TextField,
+PasswordField,
+TextArea {
+    -fx-background-color: #FFFFFF;
+    -fx-border-color: #B0BEC5;
+    -fx-border-radius: 8px;
+    -fx-background-radius: 8px;
+    -fx-border-width: 1px;
+    -fx-padding: 10px 14px;
+    -fx-text-fill: #1A2332;
+    -fx-font-size: 13px;
+    -fx-prompt-text-fill: #90A4AE;
+    -fx-effect: innershadow(gaussian, rgba(0, 0, 0, 0.08), 3, 0, 1, 1),
+                dropshadow(gaussian, rgba(0, 0, 0, 0.05), 4, 0, 0, 2);
+}
+
+TextField:focused,
+PasswordField:focused,
+TextArea:focused {
+    -fx-border-color: #1565C0;
+    -fx-border-width: 2px;
+    -fx-effect: innershadow(gaussian, rgba(21, 101, 192, 0.1), 4, 0, 1, 1),
+                dropshadow(gaussian, rgba(21, 101, 192, 0.3), 8, 0, 0, 3);
+}
+
+TextArea {
+    -fx-padding: 10px;
+}
+
+/* ── COMBOBOX ──────────────────────────────────────────────── */
+ComboBox {
+    -fx-background-color: linear-gradient(to bottom, #FFFFFF, #F5F7FA);
+    -fx-border-color: #B0BEC5;
+    -fx-border-radius: 8px;
+    -fx-background-radius: 8px;
+    -fx-border-width: 1px;
+    -fx-font-size: 13px;
+    -fx-text-fill: #1A2332;
+    -fx-padding: 6px 10px;
+    -fx-effect: innershadow(gaussian, rgba(0, 0, 0, 0.08), 2, 0, 1, 1),
+                dropshadow(gaussian, rgba(0, 0, 0, 0.08), 4, 0, 0, 2);
+}
+
+ComboBox:focused {
+    -fx-border-color: #1565C0;
+    -fx-border-width: 2px;
+    -fx-effect: dropshadow(gaussian, rgba(21, 101, 192, 0.35), 8, 0, 0, 3);
+}
+
+ComboBox .list-cell {
+    -fx-padding: 8px 14px;
+    -fx-text-fill: #1A2332;
+    -fx-background-color: #FFFFFF;
+    -fx-border-width: 0;
+}
+
+ComboBox .list-view .list-cell:hover {
+    -fx-background-color: linear-gradient(to bottom, #E3F2FD, #BBDEFB);
+    -fx-text-fill: #0D47A1;
+    -fx-font-weight: bold;
+}
+
+ComboBox .list-view .list-cell:selected {
+    -fx-background-color: #1565C0;
+    -fx-text-fill: #FFFFFF;
+    -fx-font-weight: bold;
+}
+
+ComboBox .arrow-button {
+    -fx-background-color: transparent;
+}
+
+ComboBox .arrow {
+    -fx-background-color: #546E7A;
+    -fx-background-radius: 2px;
+}
+
+/* ── BOTONES (3D Effect) ────────────────────────────────────── */
+Button {
+    -fx-border-radius: 8px;
+    -fx-background-radius: 8px;
+    -fx-font-size: 13px;
+    -fx-font-weight: bold;
+    -fx-cursor: hand;
+    -fx-padding: 10px 20px;
+    -fx-border-width: 0;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.15), 4, 0, 1, 2);
+}
+
+.btn-primary {
+    -fx-background-color: linear-gradient(to bottom, #1976D2, #1565C0, #0D47A1);
+    -fx-text-fill: #FFFFFF;
+    -fx-font-size: 13px;
+    -fx-font-weight: bold;
+    -fx-border-radius: 6px;
+    -fx-background-radius: 6px;
+    -fx-padding: 10px 22px;
+    -fx-effect: dropshadow(gaussian, rgba(21, 101, 192, 0.4), 6, 0, 2, 2),
+                innershadow(gaussian, rgba(255, 255, 255, 0.1), 1, 0, 1, 0);
+}
+.btn-primary:hover {
+    -fx-background-color: linear-gradient(to bottom, #1565C0, #0D47A1, #0A3D91);
+    -fx-effect: dropshadow(gaussian, rgba(13, 71, 161, 0.5), 10, 0, 3, 3),
+                innershadow(gaussian, rgba(255, 255, 255, 0.15), 1, 0, 1, 0);
+}
+.btn-primary:pressed {
+    -fx-background-color: linear-gradient(to bottom, #0D47A1, #0A3D91, #08306B);
+    -fx-effect: innershadow(gaussian, rgba(0, 0, 0, 0.3), 3, 0, 0, 2),
+                dropshadow(gaussian, rgba(0, 0, 0, 0.2), 2, 0, 1, 1);
+}
+
+.btn-success {
+    -fx-background-color: linear-gradient(to bottom, #388E3C, #2E7D32, #1B5E20);
+    -fx-text-fill: #FFFFFF;
+    -fx-font-size: 13px;
+    -fx-font-weight: bold;
+    -fx-border-radius: 6px;
+    -fx-background-radius: 6px;
+    -fx-padding: 10px 22px;
+    -fx-effect: dropshadow(gaussian, rgba(46, 125, 50, 0.35), 6, 0, 2, 2),
+                innershadow(gaussian, rgba(255, 255, 255, 0.1), 1, 0, 1, 0);
+}
+.btn-success:hover {
+    -fx-background-color: linear-gradient(to bottom, #2E7D32, #1B5E20, #145214);
+    -fx-effect: dropshadow(gaussian, rgba(27, 94, 32, 0.45), 10, 0, 3, 3),
+                innershadow(gaussian, rgba(255, 255, 255, 0.15), 1, 0, 1, 0);
+}
+.btn-success:pressed {
+    -fx-background-color: linear-gradient(to bottom, #1B5E20, #145214, #0D3D12);
+    -fx-effect: innershadow(gaussian, rgba(0, 0, 0, 0.3), 3, 0, 0, 2),
+                dropshadow(gaussian, rgba(0, 0, 0, 0.2), 2, 0, 1, 1);
+}
+
+.btn-danger {
+    -fx-background-color: linear-gradient(to bottom, #D32F2F, #C62828, #9B1B1B);
+    -fx-text-fill: #FFFFFF;
+    -fx-font-size: 13px;
+    -fx-font-weight: bold;
+    -fx-border-radius: 6px;
+    -fx-background-radius: 6px;
+    -fx-padding: 10px 22px;
+    -fx-effect: dropshadow(gaussian, rgba(198, 40, 40, 0.35), 6, 0, 2, 2),
+                innershadow(gaussian, rgba(255, 255, 255, 0.1), 1, 0, 1, 0);
+}
+.btn-danger:hover {
+    -fx-background-color: linear-gradient(to bottom, #C62828, #9B1B1B, #7B1414);
+    -fx-effect: dropshadow(gaussian, rgba(155, 27, 27, 0.45), 10, 0, 3, 3),
+                innershadow(gaussian, rgba(255, 255, 255, 0.15), 1, 0, 1, 0);
+}
+.btn-danger:pressed {
+    -fx-background-color: linear-gradient(to bottom, #9B1B1B, #7B1414, #5C1010);
+    -fx-effect: innershadow(gaussian, rgba(0, 0, 0, 0.3), 3, 0, 0, 2),
+                dropshadow(gaussian, rgba(0, 0, 0, 0.2), 2, 0, 1, 1);
+}
+
+.btn-secondary {
+    -fx-background-color: linear-gradient(to bottom, #90A4AE, #78909C, #546E7A);
+    -fx-text-fill: #FFFFFF;
+    -fx-font-size: 13px;
+    -fx-font-weight: bold;
+    -fx-border-radius: 6px;
+    -fx-background-radius: 6px;
+    -fx-padding: 10px 22px;
+    -fx-effect: dropshadow(gaussian, rgba(84, 110, 122, 0.3), 6, 0, 2, 2),
+                innershadow(gaussian, rgba(255, 255, 255, 0.1), 1, 0, 1, 0);
+}
+.btn-secondary:hover {
+    -fx-background-color: linear-gradient(to bottom, #78909C, #546E7A, #37474F);
+    -fx-effect: dropshadow(gaussian, rgba(84, 110, 122, 0.4), 10, 0, 3, 3),
+                innershadow(gaussian, rgba(255, 255, 255, 0.15), 1, 0, 1, 0);
+}
+.btn-secondary:pressed {
+    -fx-background-color: linear-gradient(to bottom, #546E7A, #37474F, #263238);
+    -fx-effect: innershadow(gaussian, rgba(0, 0, 0, 0.3), 3, 0, 0, 2),
+                dropshadow(gaussian, rgba(0, 0, 0, 0.2), 2, 0, 1, 1);
+}
+
+.btn-accent {
+    -fx-background-color: linear-gradient(to bottom, #03A9F4, #0288D1, #0277BD);
+    -fx-text-fill: #FFFFFF;
+    -fx-font-size: 13px;
+    -fx-font-weight: bold;
+    -fx-border-radius: 6px;
+    -fx-background-radius: 6px;
+    -fx-padding: 10px 22px;
+    -fx-effect: dropshadow(gaussian, rgba(2, 136, 209, 0.35), 6, 0, 2, 2),
+                innershadow(gaussian, rgba(255, 255, 255, 0.1), 1, 0, 1, 0);
+}
+.btn-accent:hover {
+    -fx-background-color: linear-gradient(to bottom, #0288D1, #0277BD, #01579B);
+    -fx-effect: dropshadow(gaussian, rgba(2, 119, 189, 0.45), 10, 0, 3, 3),
+                innershadow(gaussian, rgba(255, 255, 255, 0.15), 1, 0, 1, 0);
+}
+.btn-accent:pressed {
+    -fx-background-color: linear-gradient(to bottom, #0277BD, #01579B, #014077);
+    -fx-effect: innershadow(gaussian, rgba(0, 0, 0, 0.3), 3, 0, 0, 2),
+                dropshadow(gaussian, rgba(0, 0, 0, 0.2), 2, 0, 1, 1);
+}
+
+/* ── TABLA (TableView) ────────────────────────────────────── */
+TableView {
+    -fx-background-color: #FFFFFF;
+    -fx-border-color: #B0BEC5;
+    -fx-border-radius: 10px;
+    -fx-background-radius: 10px;
+    -fx-border-width: 1px;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.12), 10, 0, 0, 4);
+}
+
+TableView .column-header-background {
+    -fx-background-color: linear-gradient(to bottom, #1976D2, #1565C0, #0D47A1);
+    -fx-background-radius: 10px 10px 0 0;
+    -fx-border-radius: 10px 10px 0 0;
+}
+
+TableView .column-header {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent rgba(255, 255, 255, 0.3) transparent transparent;
+    -fx-border-width: 0 1px 0 0;
+}
+
+TableView .column-header .label {
+    -fx-text-fill: #FFFFFF;
+    -fx-font-weight: bold;
+    -fx-font-size: 12px;
+    -fx-alignment: CENTER_LEFT;
+    -fx-padding: 0 10px;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 1, 0, 0, 1);
+}
+
+TableView .table-row-cell {
+    -fx-background-color: #FFFFFF;
+    -fx-border-color: transparent transparent #ECEFF1 transparent;
+    -fx-border-width: 0 0 1px 0;
+    -fx-cell-size: 40px;
+}
+
+TableView .table-row-cell:odd {
+    -fx-background-color: #F8F9FA;
+}
+
+TableView .table-row-cell:hover {
+    -fx-background-color: linear-gradient(to bottom, #E3F2FD, #E1F5FE);
+    -fx-effect: dropshadow(gaussian, rgba(21, 101, 192, 0.1), 3, 0, 0, 1);
+}
+
+TableView .table-row-cell:selected {
+    -fx-background-color: linear-gradient(to bottom, #BBDEFB, #90CAF9);
+    -fx-border-color: transparent transparent #64B5F6 transparent;
+}
+
+TableView .table-row-cell:selected .text {
+    -fx-fill: #0D47A1;
+    -fx-font-weight: bold;
+}
+
+TableView .table-cell {
+    -fx-padding: 0 12px;
+    -fx-text-fill: #1A2332;
+    -fx-font-size: 12.5px;
+    -fx-alignment: CENTER_LEFT;
+}
+
+TableView .scroll-bar:vertical,
+TableView .scroll-bar:horizontal {
+    -fx-background-color: #F5F7FA;
+}
+
+TableView .scroll-bar:vertical .thumb,
+TableView .scroll-bar:horizontal .thumb {
+    -fx-background-color: #90A4AE;
+    -fx-background-radius: 5px;
+}
+
+TableView .scroll-bar:vertical .thumb:hover,
+TableView .scroll-bar:horizontal .thumb:hover {
+    -fx-background-color: #546E7A;
+}
+
+/* ── SEPARADOR ────────────────────────────────────────────── */
+Separator {
+    -fx-background-color: #CFD8DC;
+    -fx-padding: 3px 0;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.05), 1, 0, 0, 1);
+}
+
+.separator .line {
+    -fx-border-color: #CFD8DC;
+    -fx-border-width: 1px;
+}
+
+/* ── RADIO BUTTON ─────────────────────────────────────────── */
+RadioButton {
+    -fx-text-fill: #1A2332;
+    -fx-font-size: 13px;
+}
+
+RadioButton .radio {
+    -fx-border-color: #90A4AE;
+    -fx-border-width: 2px;
+    -fx-background-color: #FFFFFF;
+    -fx-border-radius: 10px;
+    -fx-background-radius: 10px;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.1), 2, 0, 0, 1);
+}
+
+RadioButton:selected .radio {
+    -fx-border-color: #1565C0;
+    -fx-effect: dropshadow(gaussian, rgba(21, 101, 192, 0.3), 3, 0, 0, 1);
+}
+
+RadioButton:selected .dot {
+    -fx-background-color: #1565C0;
+    -fx-background-radius: 50%;
+    -fx-effect: dropshadow(gaussian, rgba(21, 101, 192, 0.4), 2, 0, 0, 1);
+}
+
+/* ── CLASES DE UTILIDAD ──────────────────────────────────── */
+.panel-header {
+    -fx-background-color: linear-gradient(to bottom, #FFFFFF, #F8F9FA);
+    -fx-border-color: transparent transparent #CFD8DC transparent;
+    -fx-border-width: 0 0 2px 0;
+    -fx-padding: 18px 24px;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.08), 8, 0, 0, 3);
+}
+
+.card {
+    -fx-background-color: #FFFFFF;
+    -fx-background-radius: 12px;
+    -fx-border-radius: 12px;
+    -fx-border-color: #E0E7EF;
+    -fx-border-width: 1px;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.12), 14, 0, 0, 5);
+    -fx-padding: 24px;
+}
+
+.toolbar {
+    -fx-background-color: linear-gradient(to bottom, #FAFBFC, #F0F1F3);
+    -fx-border-color: transparent transparent #CFD8DC transparent;
+    -fx-border-width: 0 0 1px 0;
+    -fx-padding: 12px 0;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.03), 4, 0, 0, 2);
+}
+
+.login-card {
+    -fx-background-color: #FFFFFF;
+    -fx-background-radius: 16px;
+    -fx-border-radius: 16px;
+    -fx-border-color: #D0D9E0;
+    -fx-border-width: 1px;
+    -fx-effect: dropshadow(gaussian, rgba(21, 101, 192, 0.25), 28, 0, 0, 8);
+    -fx-padding: 40px 48px;
+}
+
+/* ── ESTADOS DISABLED ────────────────────────────────────── */
+Button:disabled {
+    -fx-opacity: 0.6;
+    -fx-effect: none;
+}
+
+TextField:disabled,
+PasswordField:disabled,
+TextArea:disabled {
+    -fx-opacity: 0.7;
+    -fx-background-color: #F5F7FA;
+}
+
+ComboBox:disabled {
+    -fx-opacity: 0.7;
+}
