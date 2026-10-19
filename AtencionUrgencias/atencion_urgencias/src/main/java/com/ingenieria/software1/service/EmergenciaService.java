@@ -5,6 +5,9 @@ import com.ingenieria.software1.model.Paciente;
 import com.ingenieria.software1.model.Triage;
 import com.ingenieria.software1.model.Empleado;
 
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -26,13 +29,45 @@ public class EmergenciaService {
     }
 
     /**
-     * Registra un nuevo paciente si no existe, luego crea la urgencia en MariaDB.
+     * Orden de las urgencias pendientes (F-01 SWR.2): primero las más graves (nivel descendente)
+     * y, en caso de empate, por hora de reporte ascendente.
      */
-    public void registrarUrgenciaReal(Paciente paciente, String sintomas, String ubicacion, int nivelTriage, String signosVitales) {
+    public static final Comparator<Urgencia> ORDEN_PRIORIDAD = Comparator
+            .comparingInt((Urgencia u) -> u.getTriage() != null ? u.getTriage().getNivelPrioridad() : 0)
+            .reversed()
+            .thenComparing(Urgencia::getHoraReporte, Comparator.nullsLast(Comparator.<LocalDateTime>naturalOrder()));
+
+    /**
+     * Devuelve las urgencias PENDIENTES ordenadas según ORDEN_PRIORIDAD, seguidas del resto
+     * de urgencias en el orden en que llegaron.
+     */
+    public List<Urgencia> pendientesPrimeroPorPrioridad(List<Urgencia> urgencias) {
+        List<Urgencia> resultado = new ArrayList<>(urgencias.stream()
+                .filter(u -> "PENDIENTE".equals(u.getEstado()))
+                .sorted(ORDEN_PRIORIDAD)
+                .collect(Collectors.toList()));
+        resultado.addAll(urgencias.stream()
+                .filter(u -> !"PENDIENTE".equals(u.getEstado()))
+                .collect(Collectors.toList()));
+        return resultado;
+    }
+
+    /**
+     * Registra un nuevo paciente si no existe, luego crea la urgencia en MariaDB.
+     * @return la urgencia recién registrada (estado PENDIENTE), o null si no se pudo guardar
+     *         (nivel de triaje fuera de 1–5 o error al persistir).
+     */
+    public Urgencia registrarUrgenciaReal(Paciente paciente, String sintomas, String ubicacion, int nivelTriage, String signosVitales) {
+        if (ValidadorDatos.validarNivelTriage(nivelTriage) != null) {
+            return null;
+        }
+
         Paciente existente = pacienteDAO.buscarPorId(paciente.getId());
         if (existente == null) {
             paciente.setHistoriaClinica("");
-            pacienteDAO.crear(paciente);
+            if (!pacienteDAO.crear(paciente)) {
+                return null;
+            }
         }
 
         Urgencia nueva = new Urgencia();
@@ -49,7 +84,14 @@ public class EmergenciaService {
 
         nueva.setTriage(triage);
 
-        urgenciaDAO.crear(nueva);
+        // El identificador se genera al azar: si coincide con uno existente, se reintenta con otro.
+        for (int intento = 0; intento < 5; intento++) {
+            if (urgenciaDAO.crear(nueva)) {
+                return nueva;
+            }
+            nueva.setId(new Urgencia().getId());
+        }
+        return null;
     }
 
     public List<Urgencia> getUrgenciasPendientes() {

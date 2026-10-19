@@ -4,6 +4,7 @@ import com.ingenieria.software1.App;
 import com.ingenieria.software1.model.Empleado;
 import com.ingenieria.software1.model.RolEmpleado;
 import com.ingenieria.software1.service.UserManagementService;
+import com.ingenieria.software1.service.ValidadorDatos;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
@@ -56,19 +57,19 @@ public class UserFormController {
      */
     public void inicializarFormulario(Empleado usuarioParaEditar, java.util.function.Consumer<Empleado> callback) {
         this.onUsuarioGuardado = callback;
-        
+
         if (usuarioParaEditar != null) {
             // Modo edición
             esModoEdicion = true;
             documentoOriginal = usuarioParaEditar.getId();
             lblTitulo.setText("Editar Usuario");
-            
+
             txtDocumento.setText(usuarioParaEditar.getId());
             txtUsuario.setText(usuarioParaEditar.getUsuario());
             txtNombreCompleto.setText(usuarioParaEditar.getNombreCompleto());
             // No cargamos la contraseña por seguridad
             cbRol.setValue(usuarioParaEditar.getRol());
-            
+
             // En modo edición, el documento no se puede modificar
             txtDocumento.setEditable(false);
         } else {
@@ -76,7 +77,7 @@ public class UserFormController {
             esModoEdicion = false;
             documentoOriginal = null;
             lblTitulo.setText("Crear Nuevo Usuario");
-            
+
             // Limpiar campos
             txtDocumento.setText("");
             txtUsuario.setText("");
@@ -84,10 +85,10 @@ public class UserFormController {
             txtContrasena.setText("");
             txtConfirmarContrasena.setText("");
             cbRol.setValue(RolEmpleado.RECEPCIONISTA); // Valor por defecto
-            
+
             txtDocumento.setEditable(true);
         }
-        
+
         // Limpiar mensaje
         lblMensaje.setText("");
     }
@@ -99,14 +100,14 @@ public class UserFormController {
     private void onGuardarClick(ActionEvent event) {
         if (validarFormulario()) {
             Empleado usuario = crearUsuarioDesdeFormulario();
-            
+
             UserManagementService.ResultadoOperacion resultado;
             if (esModoEdicion) {
                 resultado = userManagementService.actualizarUsuario(documentoOriginal, usuario);
             } else {
                 resultado = userManagementService.crearUsuario(usuario);
             }
-            
+
             if (resultado.isExitoso()) {
                 if (onUsuarioGuardado != null) {
                     onUsuarioGuardado.accept(usuario);
@@ -153,14 +154,15 @@ public class UserFormController {
     private boolean validarFormulario() {
         // Limpiar mensaje previo
         lblMensaje.setText("");
-        
+
         // Validar documento
         String documento = txtDocumento.getText().trim();
-        if (documento.isEmpty()) {
-            mostrarError("El documento es requerido");
+        String errorDocumento = ValidadorDatos.validarDocumento(documento);
+        if (errorDocumento != null) {
+            mostrarError(errorDocumento);
             return false;
         }
-        
+
         // En modo creación, verificar que el documento no exista
         if (!esModoEdicion) {
             Empleado existente = userManagementService.obtenerUsuario(documento);
@@ -169,14 +171,15 @@ public class UserFormController {
                 return false;
             }
         }
-        
+
         // Validar usuario
         String usuario = txtUsuario.getText().trim();
-        if (usuario.isEmpty()) {
-            mostrarError("El nombre de usuario es requerido");
+        String errorUsuario = ValidadorDatos.validarUsuario(usuario);
+        if (errorUsuario != null) {
+            mostrarError(errorUsuario);
             return false;
         }
-        
+
         // En modo creación, verificar que el usuario no exista
         if (!esModoEdicion) {
             Empleado existentePorUsuario = userManagementService.buscarPorUsuario(usuario);
@@ -185,39 +188,40 @@ public class UserFormController {
                 return false;
             }
         }
-        
+
         // Validar nombre completo
         String nombreCompleto = txtNombreCompleto.getText().trim();
-        if (nombreCompleto.isEmpty()) {
-            mostrarError("El nombre completo es requerido");
+        String errorNombre = ValidadorDatos.validarNombre(nombreCompleto);
+        if (errorNombre != null) {
+            mostrarError(errorNombre);
             return false;
         }
-        
+
         // Validar contraseña
         String contrasena = txtContrasena.getText();
         String confirmarContrasena = txtConfirmarContrasena.getText();
-        
+
         if (contrasena.isEmpty()) {
             mostrarError("La contraseña es requerida");
             return false;
         }
-        
+
         if (contrasena.length() < 6) {
             mostrarError("La contraseña debe tener al menos 6 caracteres");
             return false;
         }
-        
+
         if (!contrasena.equals(confirmarContrasena)) {
             mostrarError("Las contraseñas no coinciden");
             return false;
         }
-        
+
         // Validar rol
         if (cbRol.getValue() == null) {
             mostrarError("El rol es requerido");
             return false;
         }
-        
+
         return true;
     }
 

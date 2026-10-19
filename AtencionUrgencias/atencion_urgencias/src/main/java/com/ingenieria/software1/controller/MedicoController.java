@@ -43,29 +43,31 @@ public class MedicoController {
 
         // Configurar columnas
         colId.setCellValueFactory(new PropertyValueFactory<>("id"));
-        
+
         colDescripcion.setCellValueFactory(cellData -> {
             var paciente = cellData.getValue().getPaciente();
             return new javafx.beans.property.SimpleStringProperty(paciente != null ? paciente.getNombreCompleto() : cellData.getValue().getSintomatologia());
         });
-        
+
         colUbicacion.setCellValueFactory(new PropertyValueFactory<>("ubicacion"));
-        
+
         colGravedad.setCellValueFactory(cellData -> {
             var triage = cellData.getValue().getTriage();
             return new javafx.beans.property.SimpleObjectProperty<>(triage != null ? triage.getNivelPrioridad() : 0);
         });
-        
+
         colHora.setCellValueFactory(new PropertyValueFactory<>("horaReporte"));
-        
+
         colAsignado.setCellValueFactory(cellData -> {
             var personal = cellData.getValue().getPersonalAsignado();
             return new javafx.beans.property.SimpleStringProperty(personal != null ? personal.getNombreCompleto() : "No asignado");
         });
 
+        ResaltadoTriage.aplicar(tblUrgencias);
+
         // Cargar médicos en ComboBox
         cargarMedicosEnComboBox();
-        
+
         // Cargar datos iniciales
         refrescarTabla();
     }
@@ -74,20 +76,20 @@ public class MedicoController {
         ObservableList<Empleado> medicos = FXCollections.observableArrayList();
         medicos.addAll(usuarioService.getEmpleadosPorRol(com.ingenieria.software1.model.RolEmpleado.MEDICO));
         cbMedicos.setItems(medicos);
-        
+
         // Formatear cómo se ve el médico en la lista
         cbMedicos.setConverter(new javafx.util.StringConverter<>() {
-            @Override public String toString(Empleado e) { 
-                return e != null ? e.getNombreCompleto() + " (" + e.getId() + ")" : "Todos los médicos"; 
+            @Override public String toString(Empleado e) {
+                return e != null ? e.getNombreCompleto() + " (" + e.getId() + ")" : "Todos los médicos";
             }
             @Override public Empleado fromString(String string) { return null; }
         });
-        
+
         // Seleccionar por defecto el médico logueado
         if (medicoLogueado != null) {
             cbMedicos.setValue(medicoLogueado);
         }
-        
+
         // Listener para cambios en la selección
         cbMedicos.setOnAction(e -> refrescarTabla());
     }
@@ -101,9 +103,9 @@ public class MedicoController {
         if (medicoSeleccionado != null) {
             // Filtrar por médico seleccionado
             urgencias = emergenciaService.getTodasLasUrgencias().stream()
-                    .filter(u -> u.getPersonalAsignado() != null && 
-                                 u.getPersonalAsignado().getId().equals(medicoSeleccionado.getId()) &&
-                                 u.getEstado().equals("EN_CURSO"))
+                    .filter(u -> u.getPersonalAsignado() != null &&
+                            u.getPersonalAsignado().getId().equals(medicoSeleccionado.getId()) &&
+                            u.getEstado().equals("EN_CURSO"))
                     .collect(Collectors.toList());
         } else {
             // Mostrar todas las urgencias en curso

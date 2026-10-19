@@ -40,32 +40,34 @@ public class PersonalMedicoController {
         personalLogueado = usuarioService.getUsuarioLogueado();
         if (personalLogueado != null) {
             lblBienvenido.setText("Bienvenido, " + personalLogueado.getNombreCompleto() + " (" + personalLogueado.getRol() + ")");
-            
+
             // Configurar tareas según el rol
             configurarTareasSegunRol();
         }
 
         // Configurar columnas
         colId.setCellValueFactory(new PropertyValueFactory<>("id"));
-        
+
         colDescripcion.setCellValueFactory(cellData -> {
             var paciente = cellData.getValue().getPaciente();
             return new javafx.beans.property.SimpleStringProperty(paciente != null ? paciente.getNombreCompleto() : cellData.getValue().getSintomatologia());
         });
-        
+
         colUbicacion.setCellValueFactory(new PropertyValueFactory<>("ubicacion"));
-        
+
         colGravedad.setCellValueFactory(cellData -> {
             var triage = cellData.getValue().getTriage();
             return new javafx.beans.property.SimpleObjectProperty<>(triage != null ? triage.getNivelPrioridad() : 0);
         });
-        
+
         colHora.setCellValueFactory(new PropertyValueFactory<>("horaReporte"));
         colEstado.setCellValueFactory(new PropertyValueFactory<>("estado"));
 
+        ResaltadoTriage.aplicar(tblUrgencias);
+
         // Cargar personal en ComboBox según el rol del logueado
         cargarPersonalEnComboBox();
-        
+
         // Listener para cambios en la selección del ComboBox
         cbPersonal.setOnAction(e -> refrescarTabla());
 
@@ -74,7 +76,7 @@ public class PersonalMedicoController {
 
     private void configurarTareasSegunRol() {
         if (personalLogueado == null) return;
-        
+
         String tareas;
         switch (personalLogueado.getRol()) {
             case ENFERMERO:
@@ -91,7 +93,7 @@ public class PersonalMedicoController {
 
     private void cargarPersonalEnComboBox() {
         ObservableList<Empleado> personal = FXCollections.observableArrayList();
-        
+
         if (personalLogueado != null) {
             switch (personalLogueado.getRol()) {
                 case ENFERMERO:
@@ -106,21 +108,21 @@ public class PersonalMedicoController {
                     personal.addAll(usuarioService.getEmpleadosPorRol(com.ingenieria.software1.model.RolEmpleado.AUXILIAR));
             }
         }
-        
+
         cbPersonal.setItems(personal);
-        
+
         // Formatear cómo se ve el empleado en la lista
         cbPersonal.setConverter(new javafx.util.StringConverter<>() {
-            @Override 
-            public String toString(Empleado e) { 
-                return e != null ? e.getNombreCompleto() + " (" + e.getId() + ")" : "Todos"; 
+            @Override
+            public String toString(Empleado e) {
+                return e != null ? e.getNombreCompleto() + " (" + e.getId() + ")" : "Todos";
             }
-            @Override 
-            public Empleado fromString(String string) { 
-                return null; 
+            @Override
+            public Empleado fromString(String string) {
+                return null;
             }
         });
-        
+
         // Seleccionar por defecto el personal logueado
         if (personalLogueado != null) {
             cbPersonal.setValue(personalLogueado);
@@ -136,17 +138,17 @@ public class PersonalMedicoController {
         if (seleccionado != null) {
             // Filtrar por personal seleccionado
             urgencias = emergenciaService.getTodasLasUrgencias().stream()
-                    .filter(u -> u.getPersonalAsignado() != null && 
-                                 u.getPersonalAsignado().getId().equals(seleccionado.getId()) &&
-                                 u.getEstado().equals("EN_CURSO"))
+                    .filter(u -> u.getPersonalAsignado() != null &&
+                            u.getPersonalAsignado().getId().equals(seleccionado.getId()) &&
+                            u.getEstado().equals("EN_CURSO"))
                     .collect(Collectors.toList());
         } else {
             // Mostrar todas las urgencias en curso del mismo rol
             List<Empleado> personalDelRol = usuarioService.getEmpleadosPorRol(personalLogueado.getRol());
             urgencias = emergenciaService.getTodasLasUrgencias().stream()
-                    .filter(u -> u.getPersonalAsignado() != null && 
-                                 u.getEstado().equals("EN_CURSO") &&
-                                 personalDelRol.stream().anyMatch(e -> e.getId().equals(u.getPersonalAsignado().getId())))
+                    .filter(u -> u.getPersonalAsignado() != null &&
+                            u.getEstado().equals("EN_CURSO") &&
+                            personalDelRol.stream().anyMatch(e -> e.getId().equals(u.getPersonalAsignado().getId())))
                     .collect(Collectors.toList());
         }
 

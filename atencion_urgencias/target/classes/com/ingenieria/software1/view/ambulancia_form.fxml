@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="550.0" prefWidth="600.0" styleClass="root" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ingenieria.software1.controller.AmbulanciaFormController">
+    <children>
+        <VBox spacing="15.0" styleClass="card" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="20.0">
+            <children>
+                <Label text="Gestión de Ambulancias" styleClass="label-title">
+                    <font>
+                        <Font name="System Bold" size="22.0" />
+                    </font>
+                </Label>
+                
+                <Separator />
+
+                <HBox spacing="10.0" alignment="CENTER_LEFT" styleClass="toolbar">
+                    <Button fx:id="btnNueva" text="Nueva Ambulancia" onAction="#onNuevaClick" styleClass="btn-accent" />
+                    <Button fx:id="btnEditar" text="Editar" onAction="#onEditarClick" styleClass="btn-primary" />
+                    <Button fx:id="btnEliminar" text="Eliminar" onAction="#onEliminarClick" styleClass="btn-danger" />
+                    <Separator orientation="VERTICAL" />
+                    <Button fx:id="btnFueraServicio" text="Marcar Fuera de Servicio" onAction="#onFueraServicioClick" styleClass="btn-secondary" />
+                    <Button fx:id="btnVolver" text="Volver" onAction="#onVolverClick" styleClass="btn-secondary" />
+                </HBox>
+
+                <TableView fx:id="tblAmbulancias" VBox.vgrow="ALWAYS">
+                    <columns>
+                        <TableColumn fx:id="colId" text="ID" prefWidth="80.0" />
+                        <TableColumn fx:id="colPlaca" text="Placa" prefWidth="100.0" />
+                        <TableColumn fx:id="colEstado" text="Estado" prefWidth="120.0" />
+                        <TableColumn fx:id="colModelo" text="Modelo" prefWidth="150.0" />
+                        <TableColumn fx:id="colKilometraje" text="Kilometraje" prefWidth="100.0" />
+                        <TableColumn fx:id="colFechaAlta" text="Fecha Alta" prefWidth="120.0" />
+                    </columns>
+                </TableView>
+
+                <Label fx:id="lblEstado" text="Sistema listo. Cargando ambulancias..." styleClass="label-status" />
+            </children>
+        </VBox>
+    </children>
+</AnchorPane>

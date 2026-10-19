@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.text.Font?>
+
+<VBox spacing="15.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ingenieria.software1.controller.AmbulanciaDialogController" prefWidth="450.0" styleClass="card">
+    <padding>
+        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+    </padding>
+    
+    <Label fx:id="lblTitulo" text="Nueva Ambulancia" styleClass="label-title">
+        <font>
+            <Font name="System Bold" size="18.0" />
+        </font>
+    </Label>
+    
+    <Separator />
+
+    <GridPane hgap="10.0" vgap="15.0">
+        <columnConstraints>
+            <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" maxWidth="120.0" minWidth="100.0" prefWidth="110.0"/>
+            <ColumnConstraints hgrow="ALWAYS" maxWidth="300.0" minWidth="150.0" prefWidth="250.0"/>
+        </columnConstraints>
+
+        <children>
+            <Label text="ID:" GridPane.columnIndex="0" GridPane.rowIndex="0" styleClass="label-section" />
+            <TextField fx:id="txtId" GridPane.columnIndex="1" GridPane.rowIndex="0" promptText="Ej: AMB-001" />
+
+            <Label text="Placa:" GridPane.columnIndex="0" GridPane.rowIndex="1" styleClass="label-section" />
+            <TextField fx:id="txtPlaca" GridPane.columnIndex="1" GridPane.rowIndex="1" promptText="Ej: ABC-123" />
+
+            <Label text="Estado:" GridPane.columnIndex="0" GridPane.rowIndex="2" styleClass="label-section" />
+            <ComboBox fx:id="cbEstado" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+
+            <Label text="Modelo:" GridPane.columnIndex="0" GridPane.rowIndex="3" styleClass="label-section" />
+            <TextField fx:id="txtModelo" GridPane.columnIndex="1" GridPane.rowIndex="3" promptText="Ej: Chevrolet, Mercedes" />
+
+            <Label text="Kilometraje:" GridPane.columnIndex="0" GridPane.rowIndex="4" styleClass="label-section" />
+            <TextField fx:id="txtKilometraje" GridPane.columnIndex="1" GridPane.rowIndex="4" promptText="Ej: 50000" />
+
+            <Label text="Observaciones:" GridPane.columnIndex="0" GridPane.rowIndex="5" styleClass="label-section" />
+            <TextArea fx:id="txtObservaciones" GridPane.columnIndex="1" GridPane.rowIndex="5" prefHeight="60.0" promptText="Notas adicionales" />
+        </children>
+    </GridPane>
+
+    <HBox spacing="10.0" alignment="CENTER_RIGHT">
+        <Button fx:id="btnCancelar" text="Cancelar" onAction="#onCancelarClick" styleClass="btn-secondary" />
+        <Button fx:id="btnGuardar" text="Guardar" onAction="#onGuardarClick" styleClass="btn-success" />
+    </HBox>
+
+    <Label fx:id="lblMensaje" text="" styleClass="label-error" />
+</VBox>
