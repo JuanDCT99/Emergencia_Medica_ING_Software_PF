@@ -23,7 +23,7 @@
             <ColumnConstraints prefWidth="120.0" />
             <ColumnConstraints hgrow="ALWAYS" />
         </columnConstraints>
-        
+
         <Label text="Documento ID:" GridPane.rowIndex="0" styleClass="label-section" />
         <TextField fx:id="txtDocumento" promptText="Cédula del paciente" GridPane.columnIndex="1" GridPane.rowIndex="0" />
 

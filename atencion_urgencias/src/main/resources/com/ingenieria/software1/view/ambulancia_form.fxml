@@ -14,7 +14,7 @@
                         <Font name="System Bold" size="22.0" />
                     </font>
                 </Label>
-                
+
                 <Separator />
 
                 <HBox spacing="10.0" alignment="CENTER_LEFT" styleClass="toolbar">

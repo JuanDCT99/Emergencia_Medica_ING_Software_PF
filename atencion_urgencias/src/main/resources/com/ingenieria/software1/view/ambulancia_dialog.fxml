@@ -9,13 +9,13 @@
     <padding>
         <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
     </padding>
-    
+
     <Label fx:id="lblTitulo" text="Nueva Ambulancia" styleClass="label-title">
         <font>
             <Font name="System Bold" size="18.0" />
         </font>
     </Label>
-    
+
     <Separator />
 
     <GridPane hgap="10.0" vgap="15.0">

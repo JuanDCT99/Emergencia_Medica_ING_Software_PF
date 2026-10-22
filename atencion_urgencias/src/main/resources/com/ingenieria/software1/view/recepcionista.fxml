@@ -9,7 +9,7 @@
     <padding>
         <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
     </padding>
-    
+
     <HBox alignment="CENTER_LEFT" spacing="20.0" styleClass="panel-header">
         <Label text="Panel de Gestión de Urgencias" textFill="#2c3e50" styleClass="label-title">
             <font>
@@ -30,34 +30,39 @@
         <Separator orientation="VERTICAL" />
         <Label text="Asignar a:" styleClass="label-section" />
         <ComboBox fx:id="cbPersonal" prefWidth="180.0" promptText="Seleccionar Médico/Enf." />
+        <Separator orientation="VERTICAL" />
+        <Label text="Ambulancia:" styleClass="label-section" />
+        <ComboBox fx:id="cbAmbulancia" prefWidth="150.0" promptText="Sin asignar (opcional)" />
         <Button fx:id="btnDespachar" text="Despachar Urgencia" onAction="#onDespacharClick" styleClass="btn-primary" />
         <Separator orientation="VERTICAL" />
         <Button fx:id="btnVerFinalizadas" text="Ver Finalizadas" onAction="#onVerFinalizadasClick" styleClass="btn-secondary" />
     </HBox>
 
     <Label fx:id="lblTituloTabla" text="Urgencias Activas" styleClass="label-section" />
-    
+
     <TableView fx:id="tblUrgencias" VBox.vgrow="ALWAYS">
         <columns>
-            <TableColumn fx:id="colId" text="ID" prefWidth="80.0" />
-            <TableColumn fx:id="colDescripcion" text="Descripción" prefWidth="180.0" />
-            <TableColumn fx:id="colUbicacion" text="Ubicación" prefWidth="130.0" />
-            <TableColumn fx:id="colGravedad" text="Nivel (1-5)" prefWidth="80.0" />
+            <TableColumn fx:id="colId" text="ID" prefWidth="70.0" />
+            <TableColumn fx:id="colDescripcion" text="Descripción" prefWidth="160.0" />
+            <TableColumn fx:id="colUbicacion" text="Ubicación" prefWidth="120.0" />
+            <TableColumn fx:id="colGravedad" text="Nivel (1-5)" prefWidth="70.0" />
             <TableColumn fx:id="colHora" text="Hora Reporte" prefWidth="120.0" />
-            <TableColumn fx:id="colEstado" text="Estado" prefWidth="100.0" />
-            <TableColumn fx:id="colAsignado" text="Personal Asignado" prefWidth="150.0" />
+            <TableColumn fx:id="colEstado" text="Estado" prefWidth="90.0" />
+            <TableColumn fx:id="colAsignado" text="Personal Asignado" prefWidth="140.0" />
+            <TableColumn fx:id="colAmbulancia" text="Ambulancia" prefWidth="100.0" />
         </columns>
     </TableView>
 
     <TableView fx:id="tblFinalizadas" VBox.vgrow="ALWAYS" visible="false" managed="false">
         <columns>
-            <TableColumn fx:id="colFinId" text="ID" prefWidth="80.0" />
-            <TableColumn fx:id="colFinDescripcion" text="Descripción" prefWidth="180.0" />
-            <TableColumn fx:id="colFinUbicacion" text="Ubicación" prefWidth="130.0" />
-            <TableColumn fx:id="colFinGravedad" text="Nivel (1-5)" prefWidth="80.0" />
+            <TableColumn fx:id="colFinId" text="ID" prefWidth="70.0" />
+            <TableColumn fx:id="colFinDescripcion" text="Descripción" prefWidth="160.0" />
+            <TableColumn fx:id="colFinUbicacion" text="Ubicación" prefWidth="120.0" />
+            <TableColumn fx:id="colFinGravedad" text="Nivel (1-5)" prefWidth="70.0" />
             <TableColumn fx:id="colFinHora" text="Hora Reporte" prefWidth="120.0" />
-            <TableColumn fx:id="colFinEstado" text="Estado" prefWidth="100.0" />
-            <TableColumn fx:id="colFinAsignado" text="Personal Asignado" prefWidth="150.0" />
+            <TableColumn fx:id="colFinEstado" text="Estado" prefWidth="90.0" />
+            <TableColumn fx:id="colFinAsignado" text="Personal Asignado" prefWidth="140.0" />
+            <TableColumn fx:id="colFinAmbulancia" text="Ambulancia" prefWidth="100.0" />
         </columns>
     </TableView>
 
