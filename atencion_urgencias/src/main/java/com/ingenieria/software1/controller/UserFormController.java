@@ -4,6 +4,7 @@ import com.ingenieria.software1.App;
 import com.ingenieria.software1.model.Empleado;
 import com.ingenieria.software1.model.RolEmpleado;
 import com.ingenieria.software1.service.UserManagementService;
+import com.ingenieria.software1.service.UsuarioService;
 import com.ingenieria.software1.service.ValidadorDatos;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -112,14 +113,23 @@ public class UserFormController {
                 if (onUsuarioGuardado != null) {
                     onUsuarioGuardado.accept(usuario);
                 }
-                try {
-                    App.setRoot("view/login");
-                } catch (IOException e) {
-                    mostrarError("Error al navegar: " + e.getMessage());
-                }
+                volverAlDashboardOLogin();
             } else {
                 mostrarError(resultado.getMensaje());
             }
+        }
+    }
+
+    private void volverAlDashboardOLogin() {
+        try {
+            if (UsuarioService.getInstance().getUsuarioLogueado() != null &&
+                UsuarioService.getInstance().getUsuarioLogueado().getRol() == RolEmpleado.ADMIN) {
+                App.setRoot("view/admin_dashboard");
+            } else {
+                App.setRoot("view/login");
+            }
+        } catch (IOException e) {
+            mostrarError("Error al navegar: " + e.getMessage());
         }
     }
 
@@ -127,24 +137,16 @@ public class UserFormController {
      * Maneja el evento de click en el botón "Volver".
      */
     @FXML
-    private void onVolverClick() {
-        try {
-            App.setRoot("view/login");
-        } catch (IOException e) {
-            System.err.println("Error navegando a login: " + e.getMessage());
-        }
+    public void onVolverClick() {
+        volverAlDashboardOLogin();
     }
 
     /**
      * Maneja el evento de click en el botón "Cancelar".
      */
     @FXML
-    private void onCancelarClick(ActionEvent event) {
-        try {
-            App.setRoot("view/login");
-        } catch (IOException e) {
-            System.err.println("Error navegando a login: " + e.getMessage());
-        }
+    public void onCancelarClick(ActionEvent event) {
+        volverAlDashboardOLogin();
     }
 
     /**
