@@ -28,11 +28,11 @@ public class RecepcionistaController {
     @FXML private TableColumn<Urgencia, String> colEstado;
     @FXML private TableColumn<Urgencia, String> colAsignado;
     @FXML private TableColumn<Urgencia, String> colAmbulancia;
-    
+
     @FXML private ComboBox<com.ingenieria.software1.model.Empleado> cbPersonal;
     @FXML private ComboBox<Ambulancia> cbAmbulancia;
     @FXML private ComboBox<String> cbFiltroEstado;
-    
+
     @FXML private Label lblEstadoSistema;
     @FXML private Label lblTituloTabla;
     @FXML private TableView<Urgencia> tblFinalizadas;
@@ -49,24 +49,24 @@ public class RecepcionistaController {
     private final EmergenciaService emergenciaService = EmergenciaService.getInstance();
     private final UsuarioService usuarioService = UsuarioService.getInstance();
     private final AmbulanciaService ambulanciaService = AmbulanciaService.getInstance();
-    
+
     private final ObservableList<Urgencia> listaObservable = FXCollections.observableArrayList();
     private final ObservableList<Urgencia> listaFinalizadas = FXCollections.observableArrayList();
     private final ObservableList<Ambulancia> listaAmbulancias = FXCollections.observableArrayList();
-    
+
     private boolean mostrandoFinalizadas = false;
 
     @FXML
     public void initialize() {
         colId.setCellValueFactory(new PropertyValueFactory<>("id"));
-        
+
         colDescripcion.setCellValueFactory(cellData -> {
             var paciente = cellData.getValue().getPaciente();
             return new javafx.beans.property.SimpleStringProperty(paciente != null ? paciente.getNombreCompleto() : cellData.getValue().getSintomatologia());
         });
 
         colUbicacion.setCellValueFactory(new PropertyValueFactory<>("ubicacion"));
-        
+
         colGravedad.setCellValueFactory(cellData -> {
             var triage = cellData.getValue().getTriage();
             return new javafx.beans.property.SimpleObjectProperty<>(triage != null ? triage.getNivelPrioridad() : 0);
@@ -74,12 +74,12 @@ public class RecepcionistaController {
 
         colHora.setCellValueFactory(new PropertyValueFactory<>("horaReporte"));
         colEstado.setCellValueFactory(new PropertyValueFactory<>("estado"));
-        
+
         colAsignado.setCellValueFactory(cellData -> {
             var personal = cellData.getValue().getPersonalAsignado();
             return new javafx.beans.property.SimpleStringProperty(personal != null ? personal.getNombreCompleto() : "No asignado");
         });
-        
+
         colAmbulancia.setCellValueFactory(cellData -> {
             var ambulancia = cellData.getValue().getAmbulanciaAsignada();
             return new javafx.beans.property.SimpleStringProperty(ambulancia != null ? ambulancia.getId() : "Sin asignar");
@@ -105,6 +105,10 @@ public class RecepcionistaController {
             var ambulancia = cellData.getValue().getAmbulanciaAsignada();
             return new javafx.beans.property.SimpleStringProperty(ambulancia != null ? ambulancia.getId() : "Sin asignar");
         });
+
+        // Resaltado por color según el nivel de triaje (F-01 SWR.3 / F-14)
+        ResaltadoTriage.aplicar(tblUrgencias);
+        ResaltadoTriage.aplicar(tblFinalizadas);
 
         cargarPersonalEnComboBox();
         cargarAmbulanciasEnComboBox();
@@ -137,7 +141,7 @@ public class RecepcionistaController {
     @FXML
     public void onVerFinalizadasClick() {
         mostrandoFinalizadas = !mostrandoFinalizadas;
-        
+
         if (mostrandoFinalizadas) {
             tblUrgencias.setVisible(false);
             tblUrgencias.setManaged(false);
@@ -161,11 +165,11 @@ public class RecepcionistaController {
         ObservableList<com.ingenieria.software1.model.Empleado> personalDisponible = FXCollections.observableArrayList();
         personalDisponible.addAll(usuarioService.getEmpleadosPorRol(com.ingenieria.software1.model.RolEmpleado.MEDICO));
         personalDisponible.addAll(usuarioService.getEmpleadosPorRol(com.ingenieria.software1.model.RolEmpleado.ENFERMERO));
-        
+
         cbPersonal.setItems(personalDisponible);
         cbPersonal.setConverter(new javafx.util.StringConverter<>() {
-            @Override public String toString(com.ingenieria.software1.model.Empleado e) { 
-                return e != null ? e.getNombreCompleto() + " (" + e.getRol() + ")" : ""; 
+            @Override public String toString(com.ingenieria.software1.model.Empleado e) {
+                return e != null ? e.getNombreCompleto() + " (" + e.getRol() + ")" : "";
             }
             @Override public com.ingenieria.software1.model.Empleado fromString(String string) { return null; }
         });
@@ -175,10 +179,10 @@ public class RecepcionistaController {
         listaAmbulancias.clear();
         listaAmbulancias.add(null);
         listaAmbulancias.addAll(ambulanciaService.obtenerAmbulanciasDisponibles());
-        
+
         cbAmbulancia.setItems(listaAmbulancias);
         cbAmbulancia.setValue(null);
-        
+
         cbAmbulancia.setConverter(new StringConverter<Ambulancia>() {
             @Override
             public String toString(Ambulancia a) {
@@ -197,33 +201,19 @@ public class RecepcionistaController {
     private void refrescarTabla() {
         List<Urgencia> urgencias = emergenciaService.getTodasLasUrgencias();
         String filtro = cbFiltroEstado.getValue();
-        
+
         if (filtro != null && !filtro.equals("TODAS")) {
             urgencias = urgencias.stream()
                     .filter(u -> u.getEstado().equals(filtro))
                     .collect(java.util.stream.Collectors.toList());
         }
 
+        // F-01 SWR.2: las pendientes van primero, de mayor a menor nivel y, en empate, por hora de reporte ASC
+        urgencias = emergenciaService.pendientesPrimeroPorPrioridad(urgencias);
+
         listaObservable.setAll(urgencias);
         tblUrgencias.setItems(listaObservable);
 
-        tblUrgencias.setRowFactory(tv -> new TableRow<>() {
-            @Override
-            protected void updateItem(Urgencia item, boolean empty) {
-                super.updateItem(item, empty);
-                if (item == null || item.getTriage() == null) {
-                    setStyle("");
-                } else {
-                    int nivel = item.getTriage().getNivelPrioridad();
-                    switch (nivel) {
-                        case 5 -> setStyle("-fx-background-color: #ffcccc;");
-                        case 4 -> setStyle("-fx-background-color: #ffe0b2;");
-                        default -> setStyle("");
-                    }
-                }
-            }
-        });
-        
         cargarAmbulanciasEnComboBox();
     }
 
@@ -235,30 +225,37 @@ public class RecepcionistaController {
         stage.setTitle("Registrar Nueva Urgencia");
         stage.setScene(new javafx.scene.Scene(root));
         stage.initModality(javafx.stage.Modality.APPLICATION_MODAL);
+        RegistroUrgenciaController registro = loader.getController();
         stage.showAndWait();
-        
+
         refrescarTabla();
-        
-        List<Urgencia> urgencias = emergenciaService.getTodasLasUrgencias();
-        if (!urgencias.isEmpty()) {
-            Urgencia ultima = urgencias.get(urgencias.size() - 1);
-            if (ultima.getTriage() != null && 
-                ultima.getTriage().getNivelPrioridad() == 5 && 
-                "PENDIENTE".equals(ultima.getEstado())) {
-                mostrarAlertaCritica(ultima);
+
+        // F-14: la alerta se activa solo sobre la urgencia recién registrada, de nivel 5 y en estado PENDIENTE
+        Urgencia nueva = registro.getUrgenciaRegistrada();
+        if (nueva != null) {
+            Urgencia guardada = emergenciaService.getTodasLasUrgencias().stream()
+                    .filter(u -> u.getId().equals(nueva.getId()))
+                    .findFirst()
+                    .orElse(null);
+            if (guardada != null &&
+                    guardada.getTriage() != null &&
+                    guardada.getTriage().getNivelPrioridad() == 5 &&
+                    "PENDIENTE".equals(guardada.getEstado())) {
+                mostrarAlertaCritica(guardada);
             }
+            lblEstadoSistema.setText("Urgencia " + nueva.getId() + " registrada. Lista actualizada.");
+        } else {
+            lblEstadoSistema.setText("Lista de urgencias actualizada.");
         }
-        
-        lblEstadoSistema.setText("Lista de urgencias actualizada.");
     }
 
     private void mostrarAlertaCritica(Urgencia u) {
         Alert alert = new Alert(Alert.AlertType.WARNING);
         alert.setTitle("¡ALERTA CRÍTICA!");
-        alert.setHeaderText("URGENCIA NIVEL 5 DETECTADA");
+        alert.setHeaderText("¡URGENCIA NIVEL 5 DETECTADA!");
         alert.setContentText("El paciente " + u.getPaciente().getNombreCompleto() + " requiere atención inmediata.\n" +
-                            "Ubicación: " + u.getUbicacion() + "\n" +
-                            "Síntomas: " + u.getSintomatologia());
+                "Ubicación: " + u.getUbicacion() + "\n" +
+                "Síntomas: " + u.getSintomatologia());
         alert.show();
     }
 
@@ -292,15 +289,15 @@ public class RecepcionistaController {
         if (ambulanciaSeleccionada != null) {
             exito = emergenciaService.despacharUrgenciaConAmbulancia(seleccionada.getId(), asignado, ambulanciaSeleccionada);
             if (exito) {
-                lblEstadoSistema.setText("Urgencia " + seleccionada.getId() + " asignada a " + 
-                    asignado.getNombreCompleto() + " con Ambulancia " + ambulanciaSeleccionada.getId());
+                lblEstadoSistema.setText("Urgencia " + seleccionada.getId() + " asignada a " +
+                        asignado.getNombreCompleto() + " con Ambulancia " + ambulanciaSeleccionada.getId());
             }
         } else {
             emergenciaService.despacharUrgencia(seleccionada.getId(), asignado);
             exito = true;
             lblEstadoSistema.setText("Urgencia " + seleccionada.getId() + " asignada a " + asignado.getNombreCompleto());
         }
-        
+
         if (exito) {
             refrescarTabla();
             cbPersonal.setValue(null);
