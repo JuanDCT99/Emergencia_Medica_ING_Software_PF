@@ -23,7 +23,7 @@ public class RegistroUrgenciaController {
     private final ToggleGroup grupoGenero = new ToggleGroup();
     private Urgencia urgenciaRegistrada;
 
-    /** Urgencia guardada por este formulario, o null si se canceló o no se pudo guardar. */
+    // Urgencia guardada por este formulario, o null si se canceló o no se pudo guardar.
     public Urgencia getUrgenciaRegistrada() {
         return urgenciaRegistrada;
     }
