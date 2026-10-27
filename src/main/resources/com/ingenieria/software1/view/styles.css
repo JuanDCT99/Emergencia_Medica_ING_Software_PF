@@ -327,3 +327,11 @@ RadioButton:selected .dot {
     -fx-effect: dropshadow(gaussian, rgba(21, 101, 192, 0.18), 24, 0, 0, 6);
     -fx-padding: 36px 40px;
 }
+
+.label-info {
+    -fx-text-fill: #0288D1;
+    -fx-font-size: 12px;
+    -fx-padding: 4px 8px;
+    -fx-background-color: rgba(2, 136, 209, 0.1);
+    -fx-background-radius: 4px;
+}
