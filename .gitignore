@@ -1,0 +1,13 @@
+﻿# Maven y compilacion
+target/
+**/target/
+*.class
+
+# Configuración de IntelliJ / IDE
+.idea/
+*.iml
+
+# Archivos temporales y de SO
+*.log
+.DS_Store
+Thumbs.db
